@@ -1,1 +1,2 @@
-include 'audio-player'
+include 'audio-player-app'
+include 'audio-player-sdk'

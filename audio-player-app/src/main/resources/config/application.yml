@@ -1,0 +1,6 @@
+
+com.kanjisoup.audio:
+  queue:
+    exchange: event-audio
+    routing-key: event-audio
+    uri:
