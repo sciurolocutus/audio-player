@@ -1,11 +1,13 @@
 package com.kanjisoup.audio.player;
 
 import com.kanjisoup.audio.player.config.AudioPlayerConfig;
+import com.kanjisoup.audio.player.exception.InvalidFileRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,16 +18,19 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 @Component
 @Slf4j
 public class AudioPlayer {
-    private String basePath;
+    private Path basePath;
 
     public AudioPlayer(AudioPlayerConfig config) {
-        this.basePath = config.getBaseDir();
+        this.basePath = Paths.get(config.getBaseDir());
     }
 
-    public void playAudioFile(String basename) {
+    public void playAudioFile(String basename) throws InvalidFileRequestException {
         try {
             // Open an audio input stream.
-            File inFile = Paths.get(basePath, basename).toFile();
+            File inFile = basePath.resolve(basename).toFile();
+            if (!inFile.getCanonicalPath().startsWith(basePath.normalize().toString())) {
+                throw new InvalidFileRequestException(basename);
+            }
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(inFile);
 
             // Get a sound clip resource.
