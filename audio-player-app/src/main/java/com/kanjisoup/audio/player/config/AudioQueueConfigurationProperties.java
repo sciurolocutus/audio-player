@@ -7,6 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "com.kanjisoup.audio.queue")
 @Data
 public class AudioQueueConfigurationProperties implements AudioQueueClientConfig {
-  private String exchange;
-  private String routingKey;
+    private String exchange;
+    private String routingKey;
 }
