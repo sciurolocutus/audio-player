@@ -27,5 +27,4 @@ public class AudioPlayerTest {
     public void testValidFileRequestIsSupported() throws InvalidFileRequestException {
         player.playAudioFile("random.wav");
     }
-
 }

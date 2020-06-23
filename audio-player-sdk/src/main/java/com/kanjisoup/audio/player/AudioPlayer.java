@@ -28,7 +28,7 @@ public class AudioPlayer {
         try {
             // Open an audio input stream.
             File inFile = basePath.resolve(basename).toFile();
-            if (!inFile.getCanonicalPath().startsWith(basePath.normalize().toString())) {
+            if (!inFile.getCanonicalPath().startsWith(basePath.toFile().getCanonicalPath())) {
                 throw new InvalidFileRequestException(basename);
             }
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(inFile);

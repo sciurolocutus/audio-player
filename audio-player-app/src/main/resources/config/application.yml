@@ -1,3 +1,5 @@
+spring.application.name: audio-player
+
 com.kanjisoup.audio:
   queue:
     exchange: event-audio
