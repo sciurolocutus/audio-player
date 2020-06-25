@@ -5,7 +5,8 @@ import com.kanjisoup.audio.player.config.AudioPlayerConfig;
 import com.kanjisoup.audio.player.config.AudioQueueConfigurationProperties;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.ExchangeBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
@@ -23,17 +24,21 @@ public class PlayerApplicationConfig {
 
     @Bean
     Queue queue(AudioQueueConfigurationProperties props) {
-        return new Queue(props.getRoutingKey(), false);
+        return new Queue(props.getQueueName(), false);
     }
 
     @Bean
-    FanoutExchange exchange(AudioQueueConfigurationProperties props) {
-        return new FanoutExchange(props.getExchange());
+    Exchange exchange(AudioQueueConfigurationProperties props) {
+        return new ExchangeBuilder(props.getExchange(), props.getExchangeType())
+            .build();
     }
 
     @Bean
-    Binding binding(Queue queue, FanoutExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange);
+    Binding binding(Queue queue, Exchange exchange, AudioQueueConfigurationProperties props) {
+        return BindingBuilder.bind(queue)
+            .to(exchange)
+            .with(props.getRoutingKey())
+            .noargs();
     }
 
     @Bean

@@ -10,6 +10,8 @@ spring:
 com.kanjisoup.audio:
   queue:
     exchange: event-audio
+    exchange-type: fanout
     routing-key: event-audio
+    queue-name: ${com.kanjisoup.audio.queue.routing-key}
   player:
     baseDir: "${user.home}/audio-player"

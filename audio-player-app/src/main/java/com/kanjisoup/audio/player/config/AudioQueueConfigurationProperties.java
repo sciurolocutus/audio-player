@@ -8,5 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class AudioQueueConfigurationProperties implements AudioQueueClientConfig {
     private String exchange;
+    private String exchangeType;
     private String routingKey;
+    private String queueName;
 }
