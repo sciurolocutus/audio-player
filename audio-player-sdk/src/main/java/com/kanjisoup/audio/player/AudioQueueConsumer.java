@@ -2,6 +2,7 @@ package com.kanjisoup.audio.player;
 
 import com.google.gson.Gson;
 import com.kanjisoup.audio.event.sdk.domain.PlayEvent;
+import com.kanjisoup.audio.player.exception.InvalidEventException;
 import com.kanjisoup.audio.player.exception.InvalidFileRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -39,13 +40,13 @@ public class AudioQueueConsumer implements MessageListener {
             PlayEvent event = gson
                 .fromJson(json, PlayEvent.class);
 
-            log.debug("Received event {} to play {} for {}",
-                event.getUuid(), event.getFilePath(), event.getDuration());
-            audioPlayer.playAudioFile(event.getFilePath());
+            audioPlayer.playAudioFile(event);
         } catch (UnsupportedEncodingException e) {
             log.error("Error decoding message in encoding " + encoding, e);
         } catch (InvalidFileRequestException e) {
             log.error("Invalid file play request: ", e);
+        } catch (InvalidEventException e) {
+            log.error("Invalid event: ", e);
         }
     }
 }
