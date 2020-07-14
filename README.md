@@ -15,7 +15,23 @@ com.kanjisoup.audio:
     baseDir: "${user.home}/audio-player"
 ```
 
-### Rabbit connection
+### Rabbit Configuration
+#### Connection
+We leverage Spring rabbit connection properties "baked into" Spring Boot.
+See class `org.springframework.boot.autoconfigure.amqp.RabbitProperties` in `spring-boot-autoconfigure-2.2.5.RELEASE.jar`
+which loads from `@ConfigurationProperties(prefix = "spring.rabbitmq")`.
+
+Defaults are sensible for most rabbitmq docker images / default installations, but are flexible enough to change via config.
+```yaml
+spring.rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: password
+  # Other properties are available but not necessary for a simple local example.
+```
+
+#### Exchange / Queue Configuration
 Listen for events from the given exchange, expecting the given exchange type (creating it if it doesn't already exist)
 and create a binding to a queue (where the events are really listened from) with the given routing key and queue name.
 
