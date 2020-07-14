@@ -15,6 +15,23 @@ com.kanjisoup.audio:
     baseDir: "${user.home}/audio-player"
 ```
 
+### Rabbit connection
+Listen for events from the given exchange, expecting the given exchange type (creating it if it doesn't already exist)
+and create a binding to a queue (where the events are really listened from) with the given routing key and queue name.
+
+Different settings may be appropriate depending on the behavior you want,
+in a multi-player environment. Broadcast (fanout), but listening on different queues is one.
+
+Defaults:
+```yaml
+com.kanjisoup.audio:
+  queue:
+    exchange: event-audio
+    exchange-type: fanout
+    routing-key: event-audio
+    queue-name: ${com.kanjisoup.audio.queue.routing-key}
+```
+
 ## Security
 Though you'll want to evaluate your own exposure/security levels
 throughout your use of this, I did implement one type of "security" feature:
