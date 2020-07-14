@@ -1,6 +1,17 @@
+spring:
+  application:
+    name: audio-player
+  main:
+    # Disable Tomcat by default; this app exports no routes, so no need to run a web server.
+    # This also makes running multiple copies simpler since no ports are reserved.
+    web-application-type: NONE
+
+
 com.kanjisoup.audio:
   queue:
     exchange: event-audio
+    exchange-type: fanout
     routing-key: event-audio
+    queue-name: ${com.kanjisoup.audio.queue.routing-key}
   player:
     baseDir: "${user.home}/audio-player"
