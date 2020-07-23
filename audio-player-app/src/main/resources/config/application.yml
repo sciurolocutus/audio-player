@@ -15,3 +15,7 @@ com.kanjisoup.audio:
     queue-name: ${com.kanjisoup.audio.queue.routing-key}
   player:
     baseDir: "${user.home}/audio-player"
+    # Current available values are [clip, external];
+    # external requires additional configuration
+    # clip is the default, but only plays a few simple file types the JVM supports.
+    type: clip

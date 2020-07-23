@@ -18,13 +18,13 @@ import java.util.Optional;
 public class AudioQueueConsumer implements MessageListener {
 
     private final Gson gson;
-    private final AudioPlayer audioPlayer;
+    private final AbstractAudioPlayer audioPlayer;
 
     /**
      * Constructs a new instance and records its association to the passed-in channel.
      */
     @Autowired
-    public AudioQueueConsumer(AudioPlayer audioPlayer) {
+    public AudioQueueConsumer(AbstractAudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
         this.gson = new Gson();
     }

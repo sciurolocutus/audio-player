@@ -3,6 +3,7 @@ package com.kanjisoup.config;
 import com.kanjisoup.audio.player.AudioQueueConsumer;
 import com.kanjisoup.audio.player.config.AudioPlayerConfig;
 import com.kanjisoup.audio.player.config.AudioQueueConfigurationProperties;
+import com.kanjisoup.audio.player.external.config.ExternalAudioPlayerConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {
     "com.kanjisoup.audio.player"
 })
-@EnableConfigurationProperties({AudioQueueConfigurationProperties.class, AudioPlayerConfig.class})
+@EnableConfigurationProperties({AudioQueueConfigurationProperties.class, AudioPlayerConfig.class, ExternalAudioPlayerConfig.class})
 @Slf4j
 public class PlayerApplicationConfig {
 

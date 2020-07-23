@@ -1,6 +1,7 @@
 package com.kanjisoup.audio.player;
 
 import com.kanjisoup.audio.event.sdk.domain.PlayEvent;
+import com.kanjisoup.audio.player.clip.ClipAudioPlayer;
 import com.kanjisoup.audio.player.config.AudioPlayerConfig;
 import com.kanjisoup.audio.player.exception.InvalidEventException;
 import com.kanjisoup.audio.player.exception.InvalidFileRequestException;
@@ -10,9 +11,9 @@ import org.junit.Test;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-public class AudioPlayerTest {
+public class ClipAudioPlayerTest {
 
-    private AudioPlayer player;
+    private ClipAudioPlayer player;
 
     private PlayEvent event;
 
@@ -20,7 +21,7 @@ public class AudioPlayerTest {
     public void setup() {
         AudioPlayerConfig config = new AudioPlayerConfig();
         config.setBaseDir(Paths.get(".").toAbsolutePath().toString());
-        player = new AudioPlayer(config);
+        player = new ClipAudioPlayer(config);
 
         event = PlayEvent.builder()
             .uuid(UUID.randomUUID().toString())
